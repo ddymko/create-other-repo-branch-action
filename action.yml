@@ -18,7 +18,9 @@ inputs:
     access_token:
         description: 'A PAT that has access to the repository (if necessary)'
         required: false
-
+    ignore_branch_exists:
+        description: 'If the branch already exists then do not attempt to create branch'
+        required: false
 runs:
   using: "composite"
   steps:
