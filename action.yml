@@ -50,7 +50,7 @@ runs:
         fi
         
 
-        if "${{ inputs.ignore_branch_exists }}"; then
+        if true; then
             echo "ignore_branch_exists was set to ${{ inputs.ignore_branch_exists }}"
         fi
 
