@@ -48,7 +48,14 @@ runs:
             git fetch -a
             git checkout ${{ inputs.new_branch_ref }}
         fi
-        
+
+        if "${{ inputs.ignore_branch_exists }}"; then
+            echo "Cloned ${{ inputs.ignore_branch_exists }} repository successfully."
+        else
+            echo "Error: Couldn't clone ${{ inputs.ignore_branch_exists }} repository. Check the inputs or the PAT scope."
+            exit 0
+        fi
+
         if [ ! -z $(git branch --remotes --list 'origin/${{ inputs.new_branch_name }}') ]; then
             echo "Error: The branch name ${{ inputs.new_branch_name }} is already used."
             exit 1
