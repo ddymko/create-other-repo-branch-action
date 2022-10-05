@@ -60,7 +60,7 @@ runs:
             ssh-keyscan -H "github.com" > "$SSH_KNOWN_HOSTS_FILE"
             
             export GIT_SSH_COMMAND="ssh -i "$DEPLOY_KEY_FILE" -o UserKnownHostsFile=$SSH_KNOWN_HOSTS_FILE"
-            git clone git@github.com:${{ inputs.repository_owner }}/${{ inputs.repository_name }}.git"
+            git clone git@github.com:${{ inputs.repository_owner }}/${{ inputs.repository_name }}.git
         else
             git clone https://github.com/${{ inputs.repository_owner }}/${{ inputs.repository_name }}.git
         fi
