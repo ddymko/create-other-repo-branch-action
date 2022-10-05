@@ -21,6 +21,9 @@ inputs:
     ignore_branch_exists:
         description: 'If the branch already exists then do not attempt to create branch'
         required: false
+    ssh_deploy_key:
+        description: 'Allows cloning of git repositires. Should not be combined with `access-token` which will take presidence'
+        required: false
 runs:
   using: "composite"
   steps:
@@ -29,6 +32,17 @@ runs:
       run: |
         if [ -z "${{ inputs.access_token }}" ]; then
             git clone https://github.com/${{ inputs.repository_owner }}/${{ inputs.repository_name }}.git
+        elif [ -n "${{ inputs.ssh_deploy_key }}" ]; then
+            mkdir --parents "$HOME/.ssh"
+            DEPLOY_KEY_FILE="$HOME/.ssh/deploy_key"
+            echo "${{ inputs.ssh_deploy_key }}" > "$DEPLOY_KEY_FILE"
+
+            chmod 600 "$DEPLOY_KEY_FILE"
+            SSH_KNOWN_HOSTS_FILE="$HOME/.ssh/known_hosts"
+            ssh-keyscan -H "github.com" > "$SSH_KNOWN_HOSTS_FILE"
+            
+            export GIT_SSH_COMMAND="ssh -i "$DEPLOY_KEY_FILE" -o UserKnownHostsFile=$SSH_KNOWN_HOSTS_FILE"
+            git clone git@github.com:${{ inputs.repository_owner }}/${{ inputs.repository_name }}.git"
         else
             git clone https://${{ inputs.access_token }}@github.com/${{ inputs.repository_owner }}/${{ inputs.repository_name }}.git
         fi
