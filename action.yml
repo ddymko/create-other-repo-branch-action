@@ -53,6 +53,7 @@ runs:
             
             echo "this is the deploy key file"
             echo $DEPLOY_KEY_FILE
+            cat $DEPLOY_KEY_FILE
             
             # chmod 600 "$DEPLOY_KEY_FILE"
             # SSH_KNOWN_HOSTS_FILE="$HOME/.ssh/known_hosts"
