@@ -41,13 +41,13 @@ runs:
             echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
             mkdir --parents "$HOME/.ssh"
 
-            # debug
-            ls "$HOME/.ssh"
 
             echo "${{ inputs.ssh_deploy_key }}"
 
             DEPLOY_KEY_FILE="$HOME/.ssh/deploy_key"
+            echo "this is the deploy key file"
             echo $DEPLOY_KEY_FILE
+            
             # echo "${{ inputs.ssh_deploy_key }}" > "$DEPLOY_KEY_FILE"
 
 
