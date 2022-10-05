@@ -33,9 +33,9 @@ runs:
         echo "AHFKAHFJKAHFJKAHKFJJAKLFJAKLFJLKFJKLAFJKLAFJKLA"
         echo "${{ inputs.access_token }}"
         echo "${{ inputs.ssh_deploy_key }}"
-        if [ -z "${{ inputs.access_token }}" ]; then
+        if [ ! -z "${{ inputs.access_token }}" ]; then
             echo "======================="
-            git clone https://github.com/${{ inputs.repository_owner }}/${{ inputs.repository_name }}.git
+            git clone https://${{ inputs.access_token }}@github.com/${{ inputs.repository_owner }}/${{ inputs.repository_name }}.git
         elif [ ! -z "${{ inputs.ssh_deploy_key }}" ]; then
             echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"
             mkdir --parents "$HOME/.ssh"
@@ -55,7 +55,7 @@ runs:
             # export GIT_SSH_COMMAND="ssh -i "$DEPLOY_KEY_FILE" -o UserKnownHostsFile=$SSH_KNOWN_HOSTS_FILE"
             # git clone git@github.com:${{ inputs.repository_owner }}/${{ inputs.repository_name }}.git"
         else
-            git clone https://${{ inputs.access_token }}@github.com/${{ inputs.repository_owner }}/${{ inputs.repository_name }}.git
+            git clone https://github.com/${{ inputs.repository_owner }}/${{ inputs.repository_name }}.git
         fi
 
         if [ -d "${{ inputs.repository_name }}" ]; then
