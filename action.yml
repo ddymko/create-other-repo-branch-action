@@ -34,9 +34,14 @@ runs:
             git clone https://github.com/${{ inputs.repository_owner }}/${{ inputs.repository_name }}.git
         elif [ -n "${{ inputs.ssh_deploy_key }}" ]; then
             mkdir --parents "$HOME/.ssh"
+
+            # debug
             ls "$HOME/.ssh"
+            echo "${{ inputs.ssh_deploy_key }}"
+            
             DEPLOY_KEY_FILE="$HOME/.ssh/deploy_key"
             echo "${{ inputs.ssh_deploy_key }}" > "$DEPLOY_KEY_FILE"
+
 
             chmod 600 "$DEPLOY_KEY_FILE"
             SSH_KNOWN_HOSTS_FILE="$HOME/.ssh/known_hosts"
